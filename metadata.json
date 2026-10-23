@@ -1,0 +1,6 @@
+{
+  "name": "IMC Saúde - Monitoramento & Bem-Estar",
+  "description": "Acompanhamento biométrico consciente da composição corporal e evolução de peso e IMC com design sereno e harmonia natural.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,274 @@
+<!DOCTYPE html><html class="dark" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_blank" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700&amp;display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "text-mint": "#DAF1DE", "surface-container-high": "#152e2f", "deep-forest": "#0B2B26", "secondary-fixed": "#bbeddd", "surface-container-highest": "#20393a", "on-surface": "#cde8e8", "error": "#ffb4ab", "outline-variant": "#414843", "tertiary-fixed-dim": "#b6ccba", "on-secondary-fixed-variant": "#1e4f43", "surface-tint": "#a7d0b4", "secondary-fixed-dim": "#9fd1c1", "tertiary-container": "#9cb2a1", "on-surface-variant": "#c1c8c1", "on-tertiary-fixed": "#0c1f14", "inverse-primary": "#41664f", "inverse-surface": "#cde8e8", "surface-container": "#092324", "secondary-container": "#1e4f43", "text-pure": "#FFFFFF", "on-error-container": "#ffdad6", "on-error": "#690005", "tertiary": "#b7cebb", "on-primary": "#113723", "surface-glass": "rgba(11, 43, 38, 0.65)", "tertiary-fixed": "#d1e8d5", "surface-variant": "#20393a", "on-secondary-container": "#8ebfb0", "on-tertiary": "#213528", "inverse-on-surface": "#1c3435", "on-primary-fixed": "#002111", "error-container": "#93000a", "on-secondary": "#00382d", "primary-fixed-dim": "#a7d0b4", "secondary": "#9fd1c1", "primary-container": "#8eb69b", "on-tertiary-fixed-variant": "#384b3e", "on-primary-fixed-variant": "#294e39", "outline": "#8b938c", "surface-bright": "#253d3e", "surface-dim": "#001718", "on-tertiary-container": "#314537", "surface-container-lowest": "#001112", "on-background": "#cde8e8", "surface-container-low": "#051f20", "primary": "#a9d2b6", "on-secondary-fixed": "#002019", "pine-accent": "#163832", "background": "#001718", "border-glass": "rgba(218, 241, 222, 0.12)", "primary-fixed": "c3eccf", "on-primary-container": "#234833", "surface": "#001718" }, "borderRadius": { "DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px" }, "spacing": { "margin": "1.25rem", "space-md": "1rem", "gutter": "1rem", "space-lg": "1.5rem", "space-xl": "2.25rem", "margin-desktop": "2.5rem", "space-xs": "0.25rem", "gutter-desktop": "1.5rem", "space-sm": "0.5rem" }, "fontFamily": { "headline-lg": [ "Plus Jakarta Sans" ], "headline-md": [ "Plus Jakarta Sans" ], "metric-display": [ "Plus Jakarta Sans" ], "label-md": [ "Plus Jakarta Sans" ], "body-lg": [ "Inter" ], "body-sm": [ "Inter" ], "body-md": [ "Inter" ], "display-hero": [ "Plus Jakarta Sans" ], "headline-sm": [ "Plus Jakarta Sans" ], "headline-lg-mobile": [ "Plus Jakarta Sans" ], "display-hero-mobile": [ "Plus Jakarta Sans" ], "label-sm": [ "Plus Jakarta Sans" ] }, "fontSize": { "headline-lg": [ "32px", { "lineHeight": "40px", "fontWeight": "600" } ], "headline-md": [ "22px", { "lineHeight": "28px", "fontWeight": "600" } ], "metric-display": [ "42px", { "lineHeight": "46px", "fontWeight": "700" } ], "label-md": [ "14px", { "lineHeight": "18px", "fontWeight": "600" } ], "body-lg": [ "16px", { "lineHeight": "24px", "fontWeight": "400" } ], "body-sm": [ "12px", { "lineHeight": "16px", "fontWeight": "400" } ], "body-md": [ "14px", { "lineHeight": "20px", "fontWeight": "400" } ], "display-hero": [ "48px", { "lineHeight": "56px", "fontWeight": "700" } ], "headline-sm": [ "18px", { "lineHeight": "24px", "fontWeight": "600" } ], "headline-lg-mobile": [ "26px", { "lineHeight": "34px", "fontWeight": "600" } ], "display-hero-mobile": [ "36px", { "lineHeight": "44px", "fontWeight": "700" } ], "label-sm": [ "11px", { "lineHeight": "14px", "fontWeight": "600" } ] } } } };</script></head><body class="bg-background font-body-md text-body-md text-on-surface antialiased min-h-screen"><main class="w-full min-h-screen bg-background"><div class="flex flex-col w-full">
+<div class="w-full min-h-screen grid grid-cols-1 lg:grid-cols-12 relative overflow-hidden bg-background select-none"><div class="fixed top-6 right-6 z-50"><button aria-label="Alternar tema claro/escuro" class="h-10 w-10 rounded-full bg-surface-glass backdrop-blur-md hover:bg-secondary-container text-text-mint flex items-center justify-center transition-all duration-200 shadow-md cursor-pointer border border-border-glass" id="theme-toggle" type="button"><span class="material-symbols-outlined text-[20px]">light_mode</span></button></div>
+<!-- Ambient Glow Orbs -->
+<div class="absolute -top-40 -left-40 w-96 h-96 rounded-full bg-primary-container/10 blur-3xl pointer-events-none"></div>
+<div class="absolute -bottom-32 left-1/3 w-80 h-80 rounded-full bg-pine-accent/30 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/4 right-0 w-96 h-96 rounded-full bg-deep-forest/40 blur-3xl pointer-events-none"></div>
+<!-- LEFT COLUMN: Botanical Art & Manifesto (6 Cols Desktop) -->
+<div class="lg:col-span-6 relative flex-col justify-between p-8 sm:p-12 lg:p-16 overflow-hidden bg-surface-container-low min-h-[580px] lg:min-h-screen hidden lg:flex">
+<!-- Layered Organic Botanical Cutout Background (Inspired by Image 20 Paper Art & Leaves) -->
+<div class="absolute inset-0 pointer-events-none overflow-hidden">
+<!-- SVG Botanical Leaf Layers & Fluid Contours -->
+<svg class="absolute -right-24 top-0 h-full w-[140%] max-w-none opacity-40 mix-blend-screen" fill="none" viewBox="0 0 800 1000" xmlns="http://www.w3.org/2000/svg">
+<!-- Fluid Wave Cut 1 -->
+<path d="M420 0C540 180 340 320 480 500C620 680 430 840 500 1000H800V0H420Z" fill="#0B2B26"></path>
+<!-- Fluid Wave Cut 2 -->
+<path d="M490 0C590 190 410 330 540 510C670 690 500 850 560 1000H800V0H490Z" fill="#163832"></path>
+<!-- Fluid Wave Cut 3 -->
+<path d="M570 0C650 200 490 350 610 520C730 690 580 860 630 1000H800V0H570Z" fill="#1e4f43"></path>
+<!-- Monstera & Fern Foliage silhouettes in tone -->
+<g opacity="0.65">
+<path d="M680 280C610 240 550 170 560 90C630 90 710 130 750 200C720 220 700 250 680 280Z" fill="#8EB69B" fill-opacity="0.25"></path>
+<path d="M660 300C580 300 500 270 480 190C550 160 630 180 690 230L660 300Z" fill="#DAF1DE" fill-opacity="0.12"></path>
+<path d="M690 440C600 460 520 420 490 330C570 310 650 340 710 390L690 440Z" fill="#8EB69B" fill-opacity="0.22"></path>
+<path d="M670 600C580 630 500 580 470 490C550 480 640 510 690 560L670 600Z" fill="#1e4f43"></path>
+<!-- Palm frond segments -->
+<path d="M520 720C460 680 430 600 460 520C500 580 570 640 640 680L520 720Z" fill="#8EB69B" fill-opacity="0.18"></path>
+<path d="M580 840C510 820 460 760 470 670C530 720 600 770 670 800L580 840Z" fill="#DAF1DE" fill-opacity="0.1"></path>
+</g>
+</svg>
+<!-- Grain overlay effect -->
+<div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-transparent to-transparent opacity-80"></div>
+</div>
+<!-- Top brand badge -->
+<div class="relative z-10 flex items-center space-x-3">
+<div class="h-10 w-10 rounded-full bg-pine-accent flex items-center justify-center shadow-md shadow-deep-forest/50">
+<span class="material-symbols-outlined text-primary text-[22px]">spa</span>
+</div>
+<div class="flex flex-col">
+<span class="font-headline-sm text-headline-sm text-text-pure tracking-wide">IMC Saúde</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest">Biometria Consciente</span>
+</div>
+</div>
+<!-- Manifesto Centerpiece -->
+<div class="relative z-10 max-w-lg my-12 lg:my-auto">
+<div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-secondary-container/50 mb-6 backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-label-sm text-label-sm text-text-mint uppercase tracking-wider">Ecossistema de Saúde</span>
+</div>
+<h1 class="font-display-hero text-display-hero text-text-pure leading-tight mb-6">
+          Comece hoje sua evolução <span class="text-primary italic">biométrica</span> consciente.
+        </h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-8 leading-relaxed max-w-md">
+          Substitua a ansiedade clínica pela clareza serena da natureza. Monitore peso, altura e composição corporal com harmonia e base na ciência da OMS.
+        </p>
+<!-- Floating Glassmorphic Benefit Cards -->
+<div class="flex flex-col gap-3">
+<div class="flex items-center space-x-4 p-4 rounded-xl bg-surface-glass backdrop-blur-md shadow-md transition-transform duration-300 hover:translate-x-1">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-text-mint">Cálculo automático da faixa ideal OMS</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Intervalos saudáveis personalizados para sua estatura</p>
+</div>
+</div>
+<div class="flex items-center space-x-4 p-4 rounded-xl bg-surface-glass backdrop-blur-md shadow-md transition-transform duration-300 hover:translate-x-1">
+<div class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">monitoring</span>
+</div>
+<div class="min-w-0">
+<p class="font-label-md text-label-md text-text-mint">Histórico detalhado e metas saudáveis</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Acompanhe tendências sem pressões desnecessárias</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Minimal Bottom Botanical Palette Swatch bar (Inspired by Minimal Green Sheet) -->
+<div class="relative z-10 flex items-center justify-between pt-6">
+<div class="flex items-center space-x-1.5" title="Minimal Green Palette">
+<div class="w-6 h-2 rounded-full bg-[#051F20]"></div>
+<div class="w-6 h-2 rounded-full bg-[#0B2B26]"></div>
+<div class="w-6 h-2 rounded-full bg-[#163832]"></div>
+<div class="w-6 h-2 rounded-full bg-[#235347]"></div>
+<div class="w-6 h-2 rounded-full bg-[#8EB69B]"></div>
+<div class="w-6 h-2 rounded-full bg-[#DAF1DE]"></div>
+</div>
+<p class="font-body-sm text-body-sm text-outline">Plataforma Segura e Privada</p>
+</div>
+</div>
+<!-- RIGHT COLUMN: Registration Card in Dark Glassmorphism (6 Cols Desktop) -->
+<div class="w-full lg:col-span-6 flex items-center justify-center p-4 sm:p-6 lg:p-14 relative z-10">
+<!-- Floating Glass Form Container -->
+<div class="w-full max-w-md bg-surface-glass backdrop-blur-xl p-8 sm:p-10 rounded-3xl shadow-xl flex flex-col relative overflow-hidden">
+<!-- Soft top-specular inner lighting -->
+<div class="absolute -top-24 left-1/2 -translate-x-1/2 w-72 h-32 bg-primary/10 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Brand Logo Element (Strictly using Provided Placeholder Image) -->
+<div class="flex justify-center mb-6">
+<img alt="IMC Saúde Logotipo" class="h-10 w-auto object-contain brightness-110 drop-shadow-sm" src="https://lh3.googleusercontent.com/aida/AEtjO1VpvXm0NdrA-aujTFp2CddTkPmAPRZkRhR2T2OdA83PrwozNqgoOZfzKvU5iQKCS2kHkHTHI6vSNnoeqwd-fEs_4nI9x1dgvxpJV_teXAsmjZVVASxWd5sl03jUfZrK2m1IQxx3RL1ns5DDUA_S9fvyQ0L7mQcbDf0qLwM75ucoiPLfBdyotTwpE--0ZA-T-CymblvXdfTFz_mP1mZfVVDRXHCXFIYZfrCFkaHb9urlVeI5DseMH7w4tjun">
+</div>
+<!-- Header Texts -->
+<div class="text-center mb-8">
+<h2 class="font-headline-lg text-headline-lg text-text-pure">Criar Conta</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1.5">
+            Comece a monitorar seu IMC e saúde hoje
+          </p>
+</div>
+<!-- Form Elements -->
+<form class="flex flex-col space-y-4" id="register-form" onsubmit="event.preventDefault();">
+<!-- Field 1: Nome Completo -->
+<div class="flex flex-col space-y-1.5">
+<label class="font-label-sm text-label-sm text-text-mint px-1" for="name">Nome Completo</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px] pointer-events-none transition-colors group-focus-within:text-primary">
+                person
+              </span>
+<input autocomplete="name" class="w-full h-[52px] bg-surface-container/80 rounded-full pl-12 pr-4 text-body-md font-body-md text-text-pure placeholder-outline focus:outline-none focus:bg-surface-container transition-all" id="name" placeholder="Seu nome completo" required="" type="text">
+</div>
+</div>
+<!-- Field 2: E-mail -->
+<div class="flex flex-col space-y-1.5">
+<label class="font-label-sm text-label-sm text-text-mint px-1" for="email">E-mail</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px] pointer-events-none">
+                mail
+              </span>
+<input autocomplete="email" class="w-full h-[52px] bg-surface-container/80 rounded-full pl-12 pr-4 text-body-md font-body-md text-text-pure placeholder-outline focus:outline-none focus:bg-surface-container transition-all" id="email" placeholder="seu.email@exemplo.com" required="" type="email">
+</div>
+</div>
+<!-- Field 3: Senha -->
+<div class="flex flex-col space-y-1.5">
+<div class="flex items-center justify-between px-1">
+<label class="font-label-sm text-label-sm text-text-mint" for="password">Senha</label>
+<span class="font-body-sm text-body-sm text-outline" id="strength-label">Mínimo 8 dígitos</span>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px] pointer-events-none">
+                lock
+              </span>
+<input autocomplete="new-password" class="w-full h-[52px] bg-surface-container/80 rounded-full pl-12 pr-12 text-body-md font-body-md text-text-pure placeholder-outline focus:outline-none focus:bg-surface-container transition-all" id="password" placeholder="Digite sua senha" required="" type="password">
+<button aria-label="Alternar visibilidade da senha" class="absolute right-4 text-on-surface-variant hover:text-text-mint transition-colors p-1 flex items-center justify-center focus:outline-none" id="toggle-pwd" type="button">
+<span class="material-symbols-outlined text-[20px]" id="eye-icon">visibility</span>
+</button>
+</div>
+<!-- Password Strength Bar (Botanical subtle feedback) -->
+<div class="h-1.5 w-full bg-surface-container-highest rounded-full overflow-hidden mt-1 px-0.5 flex">
+<div class="h-full w-2/12 bg-primary-container rounded-full transition-all duration-300" id="pwd-meter"></div>
+</div>
+</div>
+<!-- Field 4: Confirmação de Senha -->
+<div class="flex flex-col space-y-1.5">
+<label class="font-label-sm text-label-sm text-text-mint px-1" for="confirm-password">Confirmação de Senha</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-on-surface-variant text-[20px] pointer-events-none">
+                verified_user
+              </span>
+<input autocomplete="new-password" class="w-full h-[52px] bg-surface-container/80 rounded-full pl-12 pr-12 text-body-md font-body-md text-text-pure placeholder-outline focus:outline-none focus:bg-surface-container transition-all" id="confirm-password" placeholder="Confirme sua senha" required="" type="password">
+<span class="material-symbols-outlined absolute right-4 text-primary text-[20px] opacity-0 transition-opacity" id="match-indicator">
+                check
+              </span>
+</div>
+</div>
+<!-- Primary Submit Button -->
+<div class="pt-2">
+<button class="w-full h-[52px] rounded-full bg-pine-accent hover:bg-secondary-container active:scale-[0.99] text-text-mint font-label-md text-label-md shadow-lg shadow-deep-forest/60 transition-all duration-200 flex items-center justify-center space-x-2 group cursor-pointer" type="submit">
+<span class="">Cadastrar</span>
+<span class="material-symbols-outlined text-[18px] transition-transform duration-200 group-hover:translate-x-1">
+                arrow_forward
+              </span>
+</button>
+</div>
+</form>
+<!-- Divider 'ou' -->
+<div class="relative flex items-center justify-center my-6">
+<div class="w-full h-px bg-surface-container-highest"></div>
+<span class="absolute bg-deep-forest px-3 font-body-sm text-body-sm text-outline uppercase tracking-wider">
+            ou
+          </span>
+</div>
+<!-- Social Action: Cadastrar com Google -->
+<button class="w-full h-[52px] rounded-full bg-surface-container/60 hover:bg-surface-container active:scale-[0.99] text-text-mint font-label-md text-label-md transition-all duration-200 flex items-center justify-center space-x-3 cursor-pointer shadow-sm" type="button">
+<!-- Google G Multi-Color SVG -->
+<svg class="w-5 h-5" viewBox="0 0 24 24">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span class="">Cadastrar com Google</span>
+</button>
+<!-- Footer Link: Entrar -->
+<div class="mt-8 text-center">
+<p class="font-body-md text-body-md text-on-surface-variant">
+            Já possui conta? 
+            <a class="font-label-md text-label-md text-text-mint hover:underline underline-offset-4 ml-1 transition-all" href="#login">
+              Entrar
+            </a>
+</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Interactive Logic for Input Micro-interactions -->
+<script>
+    (function() {
+      const pwdInput = document.getElementById('password');
+      const confirmInput = document.getElementById('confirm-password');
+      const toggleBtn = document.getElementById('toggle-pwd');
+      const eyeIcon = document.getElementById('eye-icon');
+      const pwdMeter = document.getElementById('pwd-meter');
+      const strengthLabel = document.getElementById('strength-label');
+      const matchIndicator = document.getElementById('match-indicator');
+
+      // Password Toggle Show/Hide
+      if (toggleBtn && pwdInput) {
+        toggleBtn.addEventListener('click', () => {
+          const isPwd = pwdInput.type === 'password';
+          pwdInput.type = isPwd ? 'text' : 'password';
+          eyeIcon.textContent = isPwd ? 'visibility_off' : 'visibility';
+        });
+      }
+
+      // Password Strength & Match Feedback
+      if (pwdInput && pwdMeter) {
+        pwdInput.addEventListener('input', () => {
+          const val = pwdInput.value;
+          if (val.length === 0) {
+            pwdMeter.style.width = '10%';
+            pwdMeter.style.backgroundColor = 'var(--tw-colors-surface-container-highest)';
+            strengthLabel.textContent = 'Mínimo 8 dígitos';
+            strengthLabel.className = 'font-body-sm text-body-sm text-outline';
+          } else if (val.length < 6) {
+            pwdMeter.style.width = '30%';
+            pwdMeter.style.backgroundColor = '#93000a';
+            strengthLabel.textContent = 'Curta';
+            strengthLabel.className = 'font-body-sm text-body-sm text-error';
+          } else if (val.length < 10) {
+            pwdMeter.style.width = '65%';
+            pwdMeter.style.backgroundColor = '#8EB69B';
+            strengthLabel.textContent = 'Boa';
+            strengthLabel.className = 'font-body-sm text-body-sm text-secondary';
+          } else {
+            pwdMeter.style.width = '100%';
+            pwdMeter.style.backgroundColor = '#DAF1DE';
+            strengthLabel.textContent = 'Forte & Segura';
+            strengthLabel.className = 'font-body-sm text-body-sm text-text-mint';
+          }
+          checkMatch();
+        });
+      }
+
+      if (confirmInput) {
+        confirmInput.addEventListener('input', checkMatch);
+      }
+
+      function checkMatch() {
+        if (!confirmInput || !pwdInput || !matchIndicator) return;
+        if (confirmInput.value.length > 0 && confirmInput.value === pwdInput.value) {
+          matchIndicator.classList.remove('opacity-0');
+          matchIndicator.classList.add('opacity-100');
+        } else {
+          matchIndicator.classList.remove('opacity-100');
+          matchIndicator.classList.add('opacity-0');
+        }
+      }
+    })();
+  </script>
+</div></main>
+
+
+
+
+
+</body></html>
