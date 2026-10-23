@@ -1,0 +1,52 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Perfil de usuário com nome, e-mail e altura padrão",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "height": { "type": "number" },
+        "photoURL": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Measurement": {
+      "title": "Measurement",
+      "description": "Registro biométrico contendo data, peso, altura e índice de massa corporal (IMC)",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+        "time": { "type": "string" },
+        "weight": { "type": "number" },
+        "height": { "type": "number" },
+        "bmi": { "type": "number" },
+        "classification": { "type": "string" },
+        "statusLabel": { "type": "string" },
+        "userId": { "type": "string" },
+        "userEmail": { "type": "string" },
+        "userName": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["id", "date", "weight", "height", "bmi", "classification"]
+    }
+  },
+  "firestore": {
+    "/measurements/{measurementId}": {
+      "schema": "Measurement",
+      "description": "Coleção raiz de medições biométricas com acesso imediato no console do Firebase"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Documentos privados com dados de perfil do usuário"
+    },
+    "/users/{userId}/measurements/{measurementId}": {
+      "schema": "Measurement",
+      "description": "Histórico de medições biométricas pertencentes ao usuário"
+    }
+  }
+}

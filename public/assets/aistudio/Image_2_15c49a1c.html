@@ -1,0 +1,388 @@
+<!DOCTYPE html><html class="light" lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_blank" name="shell-type"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Plus+Jakarta+Sans:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      "colors": {
+        "secondary-fixed": "#c3eccf",
+        "tertiary-fixed": "#d1e8d5",
+        "outline-variant": "#c0c8c4",
+        "on-surface": "#051f20",
+        "secondary": "#41664f",
+        "primary-fixed-dim": "#9fd1c1",
+        "on-error": "#ffffff",
+        "on-error-container": "#93000a",
+        "on-background": "#051f20",
+        "secondary-fixed-dim": "#a7d0b4",
+        "on-primary": "#ffffff",
+        "primary-fixed": "#bbeddd",
+        "surface": "#e4feff",
+        "on-secondary-fixed": "#002111",
+        "error": "#ba1a1a",
+        "background": "#e4feff",
+        "on-tertiary": "#ffffff",
+        "surface-container-highest": "#cde8e8",
+        "primary-container": "#235347",
+        "on-tertiary-container": "#aac0ae",
+        "on-primary-container": "#94c5b6",
+        "inverse-surface": "#1c3435",
+        "surface-variant": "#cde8e8",
+        "surface-tint": "#38675a",
+        "surface-container-high": "#d2edee",
+        "surface-container": "#d8f3f4",
+        "surface-bright": "#e4feff",
+        "on-primary-fixed": "#002019",
+        "secondary-container": "#c0eacc",
+        "on-primary-fixed-variant": "#1e4f43",
+        "surface-container-low": "#def9f9",
+        "outline": "#707975",
+        "tertiary-container": "#3b4f41",
+        "on-secondary-container": "#456b53",
+        "primary": "#053c31",
+        "on-secondary": "#ffffff",
+        "surface-dim": "#c4dfe0",
+        "tertiary-fixed-dim": "#b6ccba",
+        "inverse-on-surface": "#dbf6f7",
+        "inverse-primary": "#9fd1c1",
+        "on-tertiary-fixed": "#0c1f14",
+        "on-surface-variant": "#404945",
+        "error-container": "#ffdad6",
+        "on-tertiary-fixed-variant": "#384b3e",
+        "on-secondary-fixed-variant": "#294e39",
+        "surface-container-lowest": "#ffffff",
+        "tertiary": "#25382b",
+        "deep-forest": "#0B2B26",
+        "pine-dark": "#235347",
+        "pine-accent": "#163832",
+        "sage-soft": "#8EB69B"
+      },
+      "borderRadius": {
+        "DEFAULT": "1rem",
+        "lg": "2rem",
+        "xl": "3rem",
+        "full": "9999px"
+      },
+      "spacing": {
+        "space-sm": "0.5rem",
+        "gutter": "1rem",
+        "margin": "1.25rem",
+        "gutter-desktop": "1.5rem",
+        "margin-desktop": "2.5rem",
+        "space-md": "1rem",
+        "space-xs": "0.25rem",
+        "space-lg": "1.5rem",
+        "space-xl": "2.25rem"
+      },
+      "fontFamily": {
+        "display-hero-mobile": ["Plus Jakarta Sans"],
+        "label-sm": ["Plus Jakarta Sans"],
+        "metric-numeral": ["Plus Jakarta Sans"],
+        "label-md": ["Plus Jakarta Sans"],
+        "body-md": ["Inter"],
+        "display-hero": ["Plus Jakarta Sans"],
+        "body-sm": ["Inter"],
+        "headline-lg-mobile": ["Plus Jakarta Sans"],
+        "headline-sm": ["Plus Jakarta Sans"],
+        "headline-md": ["Plus Jakarta Sans"],
+        "body-lg": ["Inter"],
+        "headline-lg": ["Plus Jakarta Sans"]
+      },
+      "fontSize": {
+        "display-hero-mobile": ["36px", { "lineHeight": "44px", "fontWeight": "700" }],
+        "label-sm": ["11px", { "lineHeight": "14px", "fontWeight": "600" }],
+        "metric-numeral": ["40px", { "lineHeight": "44px", "fontWeight": "700" }],
+        "label-md": ["14px", { "lineHeight": "18px", "fontWeight": "600" }],
+        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+        "display-hero": ["48px", { "lineHeight": "56px", "fontWeight": "700" }],
+        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+        "headline-lg-mobile": ["26px", { "lineHeight": "34px", "fontWeight": "600" }],
+        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+        "headline-md": ["22px", { "lineHeight": "28px", "fontWeight": "600" }],
+        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "600" }]
+      }
+    }
+  }
+};</script></head><body class="bg-surface font-body-md text-body-md text-on-surface antialiased min-h-screen"><main class="w-full min-h-screen bg-surface"><div class="flex flex-col w-full">
+<div class="min-h-screen w-full flex flex-col lg:flex-row relative overflow-hidden bg-gradient-to-br from-[#def9f9] via-[#e4feff] to-[#def9f9] select-none"><div class="top-6 right-6 z-50 flex items-center gap-2 fixed"><button aria-label="Alternar tema claro e escuro" class="w-10 h-10 rounded-full bg-white/80 hover:bg-white text-deep-forest border border-white/90 shadow-sm backdrop-blur-md flex items-center justify-center transition-all duration-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-pine-dark/20 active:scale-95" onclick="document.documentElement.classList.toggle('dark'); const icon = this.querySelector('span'); icon.textContent = icon.textContent.trim() === 'dark_mode' ? 'light_mode' : 'dark_mode';" type="button"><span class="material-symbols-outlined text-xl text-pine-dark">dark_mode</span></button></div>
+<!-- Ambient Light Botanical Backdrop Glows -->
+<div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-secondary-fixed/50 blur-3xl pointer-events-none"></div>
+<div class="absolute bottom-0 right-1/4 w-[36rem] h-[36rem] rounded-full bg-surface-container/60 blur-3xl pointer-events-none"></div>
+<div class="absolute top-1/2 left-1/3 w-80 h-80 rounded-full bg-primary-fixed/40 blur-2xl pointer-events-none"></div>
+<!-- LEFT COLUMN: Botanical Art & Brand Depth (50% on desktop) -->
+<section class="relative w-full lg:w-1/2 min-h-[500px] lg:min-h-screen flex-col justify-between p-6 sm:p-10 lg:p-16 overflow-hidden bg-gradient-to-b from-[#def9f9] to-[#c4dfe0]/70 border-b lg:border-b-0 lg:border-r border-white/60 hidden lg:flex">
+<!-- Layered Paper-Cut Organic Leaves Background in Light Mode -->
+<div class="absolute inset-0 pointer-events-none select-none overflow-hidden opacity-40 mix-blend-multiply">
+<svg class="absolute -right-20 top-0 h-full w-[135%] object-cover" fill="none" viewBox="0 0 700 900" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<radialGradient cx="60%" cy="40%" id="leafGradLight1" r="70%">
+<stop offset="0%" stop-color="#235347" stop-opacity="0.45"></stop>
+<stop offset="60%" stop-color="#163832" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#0B2B26" stop-opacity="0.2"></stop>
+</radialGradient>
+<radialGradient cx="30%" cy="50%" id="leafGradLight2" r="80%">
+<stop offset="0%" stop-color="#8EB69B" stop-opacity="0.5"></stop>
+<stop offset="100%" stop-color="#235347" stop-opacity="0.25"></stop>
+</radialGradient>
+<filter height="130%" id="lightShadow1" width="130%" x="-10%" y="-10%">
+<feDropShadow dx="-8" dy="12" flood-color="#051F20" flood-opacity="0.12" stdDeviation="14"></feDropShadow>
+</filter>
+<filter height="130%" id="lightShadow2" width="130%" x="-10%" y="-10%">
+<feDropShadow dx="-10" dy="16" flood-color="#051F20" flood-opacity="0.15" stdDeviation="18"></feDropShadow>
+</filter>
+</defs>
+<!-- Organic Paper-Cut Layer 1 -->
+<path d="M520,0 C620,120 720,280 660,420 C600,560 670,720 590,900 L700,900 L700,0 Z" fill="#235347" opacity="0.25"></path>
+<!-- Layer 2: Palm fronds & Monstera silhouettes with depth -->
+<g filter="url(#lightShadow2)">
+<path d="M440,-40 C490,80 570,180 500,320 C440,440 530,580 470,720 C420,840 480,920 460,940 L700,940 L700,-40 Z" fill="url(#leafGradLight1)"></path>
+</g>
+<!-- Layer 3: Stylized Paper S-Curve Contour -->
+<g filter="url(#lightShadow1)">
+<path d="M370,-50 C410,90 350,190 390,310 C430,420 330,520 370,680 C400,800 340,890 360,950 L700,950 L700,-50 Z" fill="#8EB69B" opacity="0.4"></path>
+</g>
+<!-- Tropical Leaves Vector Artwork Layer -->
+<g fill="#235347" opacity="0.4">
+<path d="M490,240 C530,220 580,240 600,280 C610,310 590,350 560,370 C530,390 490,380 470,350 C450,320 460,260 490,240 Z"></path>
+<path d="M380,390 Q460,380 540,430 Q460,450 380,410 Z"></path>
+<path d="M360,430 Q450,440 520,510 Q430,510 360,450 Z" opacity="0.7"></path>
+<path d="M390,470 Q480,510 510,600 Q430,570 380,500 Z"></path>
+<path d="M350,530 Q440,580 470,680 Q400,640 350,560 Z" opacity="0.6"></path>
+</g>
+<!-- Front Wave Contour -->
+<path d="M300,-20 C360,110 290,240 330,370 C370,490 280,600 320,740 C350,840 300,920 310,940 L350,940 C340,890 380,800 350,680 C320,550 400,430 360,320 C330,210 390,110 340,-20 Z" fill="#a7d0b4" opacity="0.45"></path>
+</svg>
+<div class="absolute inset-0 bg-gradient-to-t from-[#def9f9]/80 via-transparent to-transparent"></div>
+</div>
+<!-- Left Header: Subtle Status Chip & Brand Icon -->
+<div class="relative z-10 flex items-center justify-between">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/70 border border-pine-dark/10 shadow-sm backdrop-blur-md">
+<span class="w-2 h-2 rounded-full bg-pine-dark animate-pulse"></span>
+<span class="font-label-sm text-label-sm tracking-wider uppercase text-pine-dark font-semibold">Monitoramento &amp; Bem-Estar</span>
+</div>
+<div class="hidden sm:flex items-center gap-2 text-deep-forest/70 font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-sm text-pine-dark">spa</span>
+<span class="">Sincronização Ativa</span>
+</div>
+</div>
+<!-- Left Center: Inspiring Typography Narrative -->
+<div class="relative z-10 max-w-lg my-10 lg:my-auto">
+<p class="font-label-md text-label-md uppercase tracking-widest text-pine-dark font-semibold mb-3 flex items-center gap-2">
+<span class="inline-block w-6 h-[2px] bg-pine-dark"></span>
+          Ciência &amp; Harmonia Corporal
+        </p>
+<h1 class="font-headline-lg text-headline-lg lg:text-display-hero lg:font-display-hero text-deep-forest tracking-tight leading-tight mb-4">
+          Equilíbrio e Vitalidade Biológica.
+        </h1>
+<p class="font-body-lg text-body-lg text-deep-forest/80 leading-relaxed max-w-md">
+          Acompanhe sua composição corporal, métricas basais e evolução contínua em um ambiente sereno, seguro e focado no seu bem-estar diário.
+        </p>
+<!-- Dynamic Visual Metric Showcase Pills -->
+<div class="mt-8 flex flex-wrap gap-2.5">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 border border-white/80 text-pine-dark text-label-sm font-label-sm shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-xs text-pine-dark">check_circle</span> IMC &amp; Taxa Basal
+          </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 border border-white/80 text-pine-dark text-label-sm font-label-sm shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-xs text-pine-dark">timeline</span> Curvas Ponderadas
+          </span>
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/70 border border-white/80 text-pine-dark text-label-sm font-label-sm shadow-sm backdrop-blur-sm">
+<span class="material-symbols-outlined text-xs text-pine-dark">shield</span> Dados Criptografados
+          </span>
+</div>
+</div>
+<!-- Left Bottom: 2 Bespoke Floating Glassmorphic Metric Stat Cards (Light Mode) -->
+<div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-deep-forest/10">
+<!-- Metric Card 1: Balance Index -->
+<div class="p-4 rounded-2xl bg-white/65 border border-white/90 backdrop-blur-md shadow-sm flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+<div class="w-12 h-12 rounded-full bg-pine-dark/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-pine-dark text-2xl">vital_signs</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-deep-forest font-bold">98.4%</span>
+<span class="font-label-sm text-label-sm text-pine-dark font-semibold flex items-center">
+<span class="material-symbols-outlined text-xs">arrow_upward</span>+2.1%
+              </span>
+</div>
+<p class="font-body-sm text-body-sm text-deep-forest/70 truncate">Índice de Equilíbrio Médio</p>
+</div>
+</div>
+<!-- Metric Card 2: Habit Evolution -->
+<div class="p-4 rounded-2xl bg-white/65 border border-white/90 backdrop-blur-md shadow-sm flex items-center gap-4 transition-transform hover:-translate-y-1 duration-300">
+<div class="w-12 h-12 rounded-full bg-pine-dark/10 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-pine-dark text-2xl">eco</span>
+</div>
+<div class="min-w-0">
+<div class="flex items-center gap-1.5">
+<span class="font-headline-sm text-headline-sm text-deep-forest font-bold">14.8k</span>
+<span class="font-label-sm text-label-sm text-pine-dark/80 font-medium">metas</span>
+</div>
+<p class="font-body-sm text-body-sm text-deep-forest/70 truncate">Evolução Contínua</p>
+</div>
+</div>
+</div>
+</section>
+<!-- RIGHT COLUMN: Authentication Glass Card Container (50% on desktop) -->
+<section class="relative w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-10 lg:p-16 bg-surface/40 backdrop-blur-sm min-h-screen">
+<!-- Ambient Light Glow Orbs -->
+<div class="absolute -top-24 right-1/4 w-72 h-72 rounded-full bg-secondary-fixed/50 blur-3xl pointer-events-none"></div>
+<!-- Interactive Main Glass Panel Light Mode -->
+<div class="w-full max-w-md p-8 sm:p-10 rounded-3xl bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(5,31,32,0.08)] border border-white flex flex-col relative z-10 overflow-hidden">
+<!-- Soft top-specular inner lighting -->
+<div class="absolute -top-20 left-1/2 -translate-x-1/2 w-64 h-28 bg-pine-dark/10 rounded-full blur-2xl pointer-events-none"></div>
+<!-- Logo Presentation (Official IMC Saúde Vector Logo) -->
+<div class="flex items-center justify-between mb-7">
+<div class="flex items-center gap-2">
+<svg class="h-10 w-auto" fill="none" height="46" viewBox="0 0 240 60" width="180" xmlns="http://www.w3.org/2000/svg">
+<g transform="translate(4, 6)">
+<rect fill="#235347" fill-opacity="0.12" height="44" rx="14" stroke="#235347" stroke-width="1.5" width="44" x="2" y="2"></rect>
+<path d="M 24 10 C 31 10 36 16 36 24 C 36 32 28 36 24 38 C 20 36 12 32 12 24 C 12 16 17 10 24 10 Z" fill="#235347"></path>
+<path d="M 24 12 C 24 22 17 28 17 28" stroke="#DAF1DE" stroke-linecap="round" stroke-width="2"></path>
+<circle cx="27" cy="21" fill="#8EB69B" r="3.5"></circle>
+<path d="M 18 31 L 30 31" stroke="#DAF1DE" stroke-linecap="round" stroke-width="1.8"></path>
+</g>
+<text fill="#0B2B26" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="21" font-weight="800" letter-spacing="-0.5px" x="62" y="32">IMC<tspan fill="#235347" font-weight="400"> Saúde</tspan></text>
+<text fill="#8EB69B" font-family="'Plus Jakarta Sans', 'Inter', -apple-system, sans-serif" font-size="9" font-weight="600" letter-spacing="1.2px" x="63" y="44">MONITORAMENTO &amp; BEM-ESTAR</text>
+</svg>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-surface-container text-pine-dark font-label-sm text-label-sm font-semibold border border-pine-dark/10">
+            v3.2 Secure
+          </span>
+</div>
+<!-- Header Titles -->
+<div class="mb-7">
+<h2 class="font-headline-lg text-headline-lg text-deep-forest font-bold tracking-tight">
+            Entrar
+          </h2>
+<p class="font-body-md text-body-md text-deep-forest/75 mt-1.5">
+            Acesse sua jornada de saúde contínua e consulte seus biomarcadores.
+          </p>
+</div>
+<!-- Access Form -->
+<form class="flex flex-col gap-4.5 space-y-4" id="loginForm" onsubmit="event.preventDefault(); handleLoginSubmit();">
+<!-- Input 1: E-mail / Usuário -->
+<div class="flex flex-col space-y-1.5">
+<label class="font-label-sm text-label-sm text-deep-forest font-semibold flex justify-between px-1" for="identifierInput">
+<span class="">E-mail ou usuário</span>
+<span class="text-deep-forest/60 text-label-sm font-label-sm font-normal">Identificador único</span>
+</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-pine-dark/60 text-xl pointer-events-none transition-colors">
+                alternate_email
+              </span>
+<input autocomplete="username" class="w-full h-[52px] pl-12 pr-4 rounded-full bg-surface-container-low/60 border border-outline-variant/60 text-deep-forest placeholder:text-outline text-body-md font-body-md outline-none shadow-sm transition-all duration-200 focus:bg-white focus:border-pine-dark focus:ring-2 focus:ring-pine-dark/10" id="identifierInput" placeholder="nome@exemplo.com.br" required="" type="text">
+</div>
+</div>
+<!-- Input 2: Senha with Toggle Visibility -->
+<div class="flex flex-col space-y-1.5">
+<div class="flex items-center justify-between px-1">
+<label class="font-label-sm text-label-sm text-deep-forest font-semibold" for="passwordInput">
+                Senha
+              </label>
+<button class="font-label-sm text-label-sm text-pine-dark hover:text-deep-forest font-semibold transition-colors duration-150 focus:outline-none" onclick="alert('Recuperação de senha: Um código de verificação será enviado ao seu e-mail cadastrado.')" type="button">
+                Esqueceu a senha?
+              </button>
+</div>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-4 text-pine-dark/60 text-xl pointer-events-none">
+                lock
+              </span>
+<input autocomplete="current-password" class="w-full h-[52px] pl-12 pr-12 rounded-full bg-surface-container-low/60 border border-outline-variant/60 text-deep-forest placeholder:text-outline text-body-md font-body-md outline-none shadow-sm transition-all duration-200 focus:bg-white focus:border-pine-dark focus:ring-2 focus:ring-pine-dark/10" id="passwordInput" placeholder="••••••••••••" required="" type="password">
+<button aria-label="Alternar visibilidade da senha" class="absolute right-4 text-pine-dark/60 hover:text-deep-forest focus:outline-none p-1 rounded-full transition-colors duration-150 flex items-center justify-center cursor-pointer" id="togglePasswordBtn" onclick="togglePasswordVisibility()" type="button">
+<span class="material-symbols-outlined text-xl" id="eyeIcon">visibility</span>
+</button>
+</div>
+</div>
+<!-- Remember Me Checkbox -->
+<div class="flex items-center gap-2.5 pt-1 px-1">
+<input class="w-4 h-4 rounded border-outline-variant text-pine-dark focus:ring-pine-dark/20 cursor-pointer accent-pine-dark" id="rememberMe" type="checkbox">
+<label class="font-body-sm text-body-sm text-deep-forest/75 cursor-pointer select-none" for="rememberMe">
+              Lembrar deste dispositivo por 30 dias
+            </label>
+</div>
+<!-- Primary Submit CTA Button (Forest Green Palette) -->
+<button class="group w-full h-[52px] rounded-full bg-pine-dark hover:bg-deep-forest active:scale-[0.99] text-white font-headline-sm text-headline-sm font-semibold tracking-wide shadow-lg shadow-pine-dark/25 transition-all duration-200 flex items-center justify-center gap-2 mt-2 cursor-pointer" id="submitBtn" type="submit">
+<span class="">Entrar</span>
+<span class="material-symbols-outlined text-xl transition-transform duration-200 group-hover:translate-x-1">
+              arrow_forward
+            </span>
+</button>
+</form>
+<!-- Subtle Separator -->
+<div class="relative my-6 flex items-center justify-center">
+<div class="w-full h-[1px] bg-outline-variant/50"></div>
+<span class="absolute px-3 bg-white text-deep-forest/60 font-label-sm text-label-sm uppercase tracking-wider font-semibold">
+            ou entrar com
+          </span>
+</div>
+<!-- Social SSO: Google Official Icon Authentication -->
+<button class="w-full h-[52px] rounded-full bg-white hover:bg-surface-container-low/80 border border-outline-variant/70 active:scale-[0.99] text-deep-forest font-label-md text-label-md transition-all duration-200 flex items-center justify-center gap-3 shadow-sm cursor-pointer" onclick="simulateSocialLogin('Google')" type="button">
+<!-- Official Google "G" Scalable SVG Symbol -->
+<svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"></path>
+<path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"></path>
+<path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"></path>
+<path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"></path>
+</svg>
+<span class="font-medium">Continuar com Google</span>
+</button>
+<!-- Card Footer: Sign Up Switch -->
+<div class="mt-7 text-center">
+<p class="font-body-md text-body-md text-deep-forest/75">
+            Não tem uma conta? 
+            <a class="font-label-md text-label-md text-pine-dark hover:text-deep-forest font-bold underline underline-offset-4 transition-colors duration-150 ml-1" href="#cadastro" onclick="alert('Redirecionando para o formulário de cadastro biométrico...')">
+              Cadastre-se
+            </a>
+</p>
+</div>
+<!-- Privacy & Medical Advisory Footnote -->
+<div class="mt-5 pt-4 border-t border-outline-variant/30 text-center">
+<p class="font-body-sm text-[11px] text-deep-forest/60 leading-snug">
+            Seus dados antropométricos e de saúde são protegidos sob rígidos padrões de conformidade biomédica.
+          </p>
+</div>
+</div>
+</section>
+</div>
+</div>
+<script>
+  function togglePasswordVisibility() {
+    const input = document.getElementById('passwordInput');
+    const icon = document.getElementById('eyeIcon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.textContent = 'visibility_off';
+    } else {
+      input.type = 'password';
+      icon.textContent = 'visibility';
+    }
+  }
+
+  function handleLoginSubmit() {
+    const btn = document.getElementById('submitBtn');
+    const originalText = btn.innerHTML;
+    btn.disabled = true;
+    btn.innerHTML = `
+      <span class="material-symbols-outlined animate-spin text-xl">sync</span>
+      <span>Autenticando...</span>
+    `;
+    setTimeout(() => {
+      btn.innerHTML = `
+        <span class="material-symbols-outlined text-xl text-white">check_circle</span>
+        <span>Acesso Autorizado!</span>
+      `;
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.innerHTML = originalText;
+      }, 1500);
+    }, 1000);
+  }
+
+  function simulateSocialLogin(provider) {
+    alert(`Iniciando conexão segura com ${provider}...`);
+  }
+</script></main>
+
+
+
+</body></html>

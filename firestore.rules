@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // Regra permissiva para teste e ambiente de desenvolvimento:
+    // Permite leitura e escrita na coleção 'measurements' (raiz visível no Firebase Console)
+    match /measurements/{measurementId} {
+      allow read, write: if true;
+    }
+
+    // Coleção 'users' e subcoleção de medições
+    match /users/{userId} {
+      allow read, write: if true;
+
+      match /measurements/{measurementId} {
+        allow read, write: if true;
+      }
+    }
+
+    // Coleção de teste de diagnóstico de conexão
+    match /test/{docId} {
+      allow read, write: if true;
+    }
+
+    // Regra global de desenvolvimento (copie esta regra no Console do Firebase se estiver com erro 'permission-denied')
+    match /{document=**} {
+      allow read, write: if true;
+    }
+  }
+}
