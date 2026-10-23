@@ -14,30 +14,26 @@ interface DashboardScreenProps {
   measurements: Measurement[];
   isDark: boolean;
   userHeight: number;
-  user: UserProfile;
+  user?: UserProfile;
   onNavigateToNew: () => void;
   onUpdateMeasurement: (updated: Measurement) => void;
   onDeleteMeasurement: (id: string) => void;
   onLoadDemoData: () => void;
   onClearAllData: () => void;
-  onManualSync: () => Promise<{ successCount: number; errorCount: number; lastError?: string; code?: string }>;
-  onTestFirestore: () => Promise<{ connected: boolean; canWrite: boolean; message: string; code?: string }>;
-  onConnectGoogle: () => Promise<{ success: boolean; error?: string }>;
+  onManualSync?: () => Promise<{ successCount: number; errorCount: number; lastError?: string; code?: string }>;
+  onTestFirestore?: () => Promise<{ connected: boolean; canWrite: boolean; message: string; code?: string }>;
+  onConnectGoogle?: () => Promise<{ success: boolean; error?: string }>;
 }
 
 export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   measurements,
   isDark,
   userHeight,
-  user,
   onNavigateToNew,
   onUpdateMeasurement,
   onDeleteMeasurement,
   onLoadDemoData,
   onClearAllData,
-  onManualSync,
-  onTestFirestore,
-  onConnectGoogle,
 }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,85 +43,11 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const itemsPerPage = 5;
 
-  const [testingConnection, setTestingConnection] = useState(false);
-  const [syncingFirestore, setSyncingFirestore] = useState(false);
-  const [connectingGoogle, setConnectingGoogle] = useState(false);
-  const [connectionResult, setConnectionResult] = useState<{
-    connected: boolean;
-    canWrite: boolean;
-    message: string;
-    code?: string;
-  } | null>(null);
-  const [showFirebaseGuide, setShowFirebaseGuide] = useState(false);
-  const [copiedRules, setCopiedRules] = useState(false);
-
   const showToast = (msg: string) => {
     setToastMessage(msg);
     setTimeout(() => {
       setToastMessage(null);
     }, 3500);
-  };
-
-  const handleTestFirestore = async () => {
-    setTestingConnection(true);
-    setConnectionResult(null);
-    try {
-      const res = await onTestFirestore();
-      setConnectionResult(res);
-      if (res.canWrite) {
-        showToast('Firestore conectado e gravando com sucesso!');
-      }
-    } catch (err: unknown) {
-      setConnectionResult({
-        connected: false,
-        canWrite: false,
-        message: err instanceof Error ? err.message : 'Falha na conexão com Firestore.',
-      });
-    } finally {
-      setTestingConnection(false);
-    }
-  };
-
-  const handleSyncNow = async () => {
-    setSyncingFirestore(true);
-    try {
-      const res = await onManualSync();
-      if (res.errorCount === 0 && res.successCount > 0) {
-        showToast(`${res.successCount} medições salvas no Firestore!`);
-      } else if (res.successCount > 0) {
-        showToast(`${res.successCount} salvas, ${res.errorCount} falhas. Verifique regras.`);
-      } else if (res.lastError) {
-        showToast(`Erro ao gravar: ${res.code || 'Verifique as regras do Firebase'}`);
-      } else {
-        showToast('Nenhuma medição para sincronizar.');
-      }
-    } catch {
-      showToast('Falha na sincronização com Firestore.');
-    } finally {
-      setSyncingFirestore(false);
-    }
-  };
-
-  const handleConnectGoogleClick = async () => {
-    setConnectingGoogle(true);
-    try {
-      const res = await onConnectGoogle();
-      if (res.success) {
-        showToast('Conta Google conectada com sucesso!');
-      } else if (res.error) {
-        showToast(res.error);
-      }
-    } finally {
-      setConnectingGoogle(false);
-    }
-  };
-
-  const copyRulesToClipboard = () => {
-    const rulesText = `rules_version = '2';\n\nservice cloud.firestore {\n  match /databases/{database}/documents {\n    match /{document=**} {\n      allow read, write: if true;\n    }\n  }\n}`;
-    navigator.clipboard.writeText(rulesText);
-    setCopiedRules(true);
-    setTimeout(() => setCopiedRules(false), 2500);
-    showToast('Regras copiadas para a área de transferência!');
   };
 
   // Most recent measurement (if any)
@@ -346,148 +268,6 @@ export const DashboardScreen: React.FC<DashboardScreenProps> = ({
         </div>
       )}
 
-      {/* Firebase Console Guide Modal */}
-      {showFirebaseGuide && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in">
-          <div
-            className={`w-full max-w-xl p-6 sm:p-7 rounded-3xl border shadow-2xl relative transition-all max-h-[90vh] overflow-y-auto ${
-              isDark
-                ? 'bg-[#0B2B26] border-[#8EB69B]/30 text-[#cde8e8]'
-                : 'bg-white border-[#c0c8c4] text-[#051F20]'
-            }`}
-          >
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2.5">
-                <span className="material-symbols-outlined text-amber-400 text-2xl">local_fire_department</span>
-                <h3 className="font-bold text-lg font-display">Como Ver os Dados no Firebase Firestore</h3>
-              </div>
-              <button
-                type="button"
-                onClick={() => setShowFirebaseGuide(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center opacity-70 hover:opacity-100 hover:bg-black/10 dark:hover:bg-white/10 transition-colors cursor-pointer"
-              >
-                <span className="material-symbols-outlined text-lg">close</span>
-              </button>
-            </div>
-
-            <p className={`text-xs sm:text-sm mb-4 leading-relaxed ${isDark ? 'text-[#c1c8c1]' : 'text-[#404945]'}`}>
-              Se você salvou medições mas elas não estão aparecendo no console do Firebase (<strong>imc-saude-71e4a</strong>),
-              isto geralmente ocorre por um destes dois motivos simples:
-            </p>
-
-            <div className="space-y-4 text-xs sm:text-sm">
-              <div className={`p-4 rounded-2xl border ${isDark ? 'bg-black/25 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
-                <p className="font-bold text-emerald-400 mb-1">Passo 1: Criar o Banco Firestore no Console</p>
-                <p className="opacity-90 leading-relaxed mb-2">
-                  No console do Firebase, o Firestore precisa ser criado manualmente se o projeto for novo. Acesse:
-                  <br />
-                  <a
-                    href="https://console.firebase.google.com/project/imc-saude-71e4a/firestore"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline text-emerald-300 font-mono break-all inline-block mt-1"
-                  >
-                    https://console.firebase.google.com/project/imc-saude-71e4a/firestore
-                  </a>
-                  <br />
-                  Clique no botão <strong>"Criar banco de dados"</strong> e selecione o modo de teste ou produção.
-                </p>
-              </div>
-
-              <div className={`p-4 rounded-2xl border ${isDark ? 'bg-black/25 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
-                <p className="font-bold text-emerald-400 mb-1">Passo 2: Publicar as Regras de Gravação (Rules)</p>
-                <p className="opacity-90 leading-relaxed mb-2">
-                  Por padrão, o Firebase cria com regras que bloqueiam gravações (<code>allow read, write: if false;</code>). Na aba <strong>Regras (Rules)</strong> do Firestore no console, cole o código abaixo e clique no botão <strong>Publicar (Publish)</strong>:
-                </p>
-                <div className="relative mt-2">
-                  <pre className="p-3 rounded-xl bg-black/60 text-[#a9d2b6] font-mono text-[11px] overflow-x-auto border border-white/10 leading-relaxed">
-{`rules_version = '2';
-
-service cloud.firestore {
-  match /databases/{database}/documents {
-    match /{document=**} {
-      allow read, write: if true;
-    }
-  }
-}`}
-                  </pre>
-                  <button
-                    type="button"
-                    onClick={copyRulesToClipboard}
-                    className="absolute top-2 right-2 px-2.5 py-1 rounded-lg text-[10px] font-bold bg-[#8EB69B] text-[#051F20] hover:bg-white transition-all cursor-pointer shadow-sm"
-                  >
-                    {copiedRules ? 'Copiado!' : 'Copiar Regras'}
-                  </button>
-                </div>
-              </div>
-
-              <div className={`p-4 rounded-2xl border ${isDark ? 'bg-black/25 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
-                <p className="font-bold text-emerald-400 mb-1">Passo 3: Onde visualizar os dados no Console</p>
-                <p className="opacity-90 leading-relaxed">
-                  O aplicativo grava automaticamente em duas coleções:
-                  <br />• <strong className="text-[#8EB69B]">/measurements</strong>: coleção raiz direta, visível no primeiro painel de dados.
-                  <br />• <strong className="text-[#8EB69B]">/users/{'{uid}'}/measurements</strong>: subcoleção individual de cada usuário autenticado.
-                </p>
-              </div>
-
-              <div className={`p-4 rounded-2xl border ${isDark ? 'bg-black/25 border-white/10' : 'bg-gray-50 border-gray-200'}`}>
-                <p className="font-bold text-emerald-400 mb-1">Passo 4: Domínios Autorizados no Firebase Authentication</p>
-                <p className="opacity-90 leading-relaxed mb-2">
-                  Para o login com Google funcionar sem o erro <code>auth/unauthorized-domain</code>, adicione estes dois domínios em:
-                  <br />
-                  <a
-                    href="https://console.firebase.google.com/project/imc-saude-71e4a/authentication/settings"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline text-emerald-300 font-mono break-all inline-block mt-1"
-                  >
-                    Authentication &gt; Configurações (Settings) &gt; Domínios autorizados
-                  </a>
-                </p>
-                <div className="space-y-2 mt-2">
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-black/40 border border-white/10 font-mono text-[11px] text-[#a9d2b6]">
-                    <span className="truncate">ais-dev-f43x7inknskqzfa2ld4nzk-798531392011.us-east1.run.app</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText('ais-dev-f43x7inknskqzfa2ld4nzk-798531392011.us-east1.run.app');
-                        showToast('Domínio de dev copiado!');
-                      }}
-                      className="px-2 py-1 rounded bg-[#8EB69B] text-[#051F20] text-[10px] font-bold hover:bg-white shrink-0 cursor-pointer"
-                    >
-                      Copiar
-                    </button>
-                  </div>
-                  <div className="flex items-center justify-between gap-2 p-2 rounded-xl bg-black/40 border border-white/10 font-mono text-[11px] text-[#a9d2b6]">
-                    <span className="truncate">ais-pre-f43x7inknskqzfa2ld4nzk-798531392011.us-east1.run.app</span>
-                    <button
-                      type="button"
-                      onClick={() => {
-                        navigator.clipboard.writeText('ais-pre-f43x7inknskqzfa2ld4nzk-798531392011.us-east1.run.app');
-                        showToast('Domínio preview copiado!');
-                      }}
-                      className="px-2 py-1 rounded bg-[#8EB69B] text-[#051F20] text-[10px] font-bold hover:bg-white shrink-0 cursor-pointer"
-                    >
-                      Copiar
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-6 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setShowFirebaseGuide(false)}
-                className="px-6 py-2.5 rounded-full text-xs font-semibold bg-[#8EB69B] text-[#051F20] hover:bg-[#a9d2b6] transition-all cursor-pointer font-display"
-              >
-                Entendi, Fechar
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Bioluminescent ambient background accents */}
       <div className="relative w-full overflow-hidden pointer-events-none">
         <div
@@ -540,176 +320,6 @@ service cloud.firestore {
             <span className="text-sm">+ Nova Medição</span>
           </button>
         </div>
-      </div>
-
-      {/* Firebase Firestore Cloud Sync & Diagnostics Card */}
-      <div
-        className={`mb-6 p-4 sm:p-5 rounded-2xl border backdrop-blur-md transition-all relative z-10 ${
-          isDark
-            ? 'bg-[#0B2B26]/75 border-[#8EB69B]/25 text-[#cde8e8] shadow-[0_10px_30px_rgba(0,0,0,0.3)]'
-            : 'bg-white/95 border-[#cde8e8] text-[#051F20] shadow-[0_4px_20px_rgba(5,31,32,0.06)]'
-        }`}
-      >
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div className="flex items-start sm:items-center gap-3">
-            <div
-              className={`w-10 h-10 rounded-xl flex items-center justify-center shrink-0 border ${
-                connectionResult?.canWrite
-                  ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30'
-                  : connectionResult && !connectionResult.canWrite
-                  ? 'bg-amber-500/20 text-amber-400 border-amber-500/30'
-                  : isDark
-                  ? 'bg-[#163832] text-[#8EB69B] border-[#8EB69B]/30'
-                  : 'bg-[#d8f3f4] text-[#053c31] border-[#235347]/20'
-              }`}
-            >
-              <span className="material-symbols-outlined text-2xl">
-                {connectionResult?.canWrite ? 'cloud_done' : 'cloud_sync'}
-              </span>
-            </div>
-            <div>
-              <div className="flex items-center gap-2 flex-wrap">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#8EB69B]">
-                  Firebase Cloud Firestore
-                </span>
-                <span
-                  className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
-                    isDark
-                      ? 'bg-black/30 border-white/10 text-gray-300'
-                      : 'bg-gray-100 border-gray-200 text-gray-600'
-                  }`}
-                >
-                  imc-saude-71e4a
-                </span>
-                {user.uid ? (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-medium">
-                    Autenticado ({user.email || user.name})
-                  </span>
-                ) : (
-                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 font-medium">
-                    Sessão Local (Não autenticado no Google)
-                  </span>
-                )}
-              </div>
-              <p className={`text-xs mt-1 ${isDark ? 'text-[#8b938c]' : 'text-[#707975]'}`}>
-                Coleções ativas: <code className="text-[11px] font-mono text-[#8EB69B]">/measurements</code>{' '}
-                e <code className="text-[11px] font-mono text-[#8EB69B]">/users/{user.uid || 'uid'}/measurements</code>
-              </p>
-            </div>
-          </div>
-
-          <div className="flex items-center gap-2 flex-wrap">
-            {!user.uid && (
-              <button
-                type="button"
-                onClick={handleConnectGoogleClick}
-                disabled={connectingGoogle}
-                className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-                  isDark
-                    ? 'bg-[#163832] hover:bg-[#235347] text-white border border-[#8EB69B]/30'
-                    : 'bg-[#d8f3f4] hover:bg-[#c2ecee] text-[#053c31] border border-[#235347]/20'
-                }`}
-                title="Conectar com o provedor Google Authentication"
-              >
-                <svg className="w-3.5 h-3.5" viewBox="0 0 24 24">
-                  <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-                  <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-                  <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z"/>
-                  <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z"/>
-                </svg>
-                <span>{connectingGoogle ? 'Conectando...' : 'Conectar Google'}</span>
-              </button>
-            )}
-
-            <button
-              type="button"
-              onClick={handleTestFirestore}
-              disabled={testingConnection}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer border ${
-                isDark
-                  ? 'border-[#8EB69B]/40 hover:bg-[#8EB69B]/15 text-[#cde8e8]'
-                  : 'border-[#235347]/30 hover:bg-[#235347]/10 text-[#053c31]'
-              }`}
-              title="Testar se o Firestore está recebendo leituras e gravações"
-            >
-              <span className={`material-symbols-outlined text-[17px] ${testingConnection ? 'animate-spin' : ''}`}>
-                {testingConnection ? 'sync' : 'network_check'}
-              </span>
-              <span>{testingConnection ? 'Testando...' : 'Testar Conexão'}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={handleSyncNow}
-              disabled={syncingFirestore || measurements.length === 0}
-              className={`px-3.5 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-all cursor-pointer ${
-                isDark
-                  ? 'bg-gradient-to-r from-[#8EB69B] to-[#a9d2b6] hover:brightness-110 text-[#051F20]'
-                  : 'bg-[#053c31] hover:bg-[#235347] text-white'
-              } disabled:opacity-50 disabled:cursor-not-allowed`}
-              title="Sincronizar medições salvas para o Firebase Console"
-            >
-              <span className={`material-symbols-outlined text-[17px] ${syncingFirestore ? 'animate-spin' : ''}`}>
-                {syncingFirestore ? 'hourglass_top' : 'cloud_upload'}
-              </span>
-              <span>{syncingFirestore ? 'Sincronizando...' : `Sincronizar (${measurements.length})`}</span>
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setShowFirebaseGuide(true)}
-              className={`p-2 rounded-xl text-xs transition-all cursor-pointer border ${
-                isDark
-                  ? 'border-white/10 hover:bg-white/10 text-gray-300'
-                  : 'border-gray-200 hover:bg-gray-100 text-gray-700'
-              }`}
-              title="Ver instruções do console e regras de segurança"
-            >
-              <span className="material-symbols-outlined text-[18px]">help_outline</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Live Test / Connection Diagnostic Alert */}
-        {connectionResult && (
-          <div
-            className={`mt-3 p-3 rounded-xl border text-xs flex items-start justify-between gap-3 animate-fade-in ${
-              connectionResult.canWrite
-                ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-400'
-                : 'bg-amber-500/10 border-amber-500/30 text-amber-300'
-            }`}
-          >
-            <div className="flex items-start gap-2">
-              <span className="material-symbols-outlined text-[18px] shrink-0 mt-0.5">
-                {connectionResult.canWrite ? 'check_circle' : 'error'}
-              </span>
-              <div>
-                <p className="font-semibold">
-                  {connectionResult.canWrite
-                    ? 'Firestore Conectado e Operando!'
-                    : `Diagnóstico: ${connectionResult.code || 'Atenção Necessária'}`}
-                </p>
-                <p className="mt-0.5 opacity-90 leading-relaxed">{connectionResult.message}</p>
-                {!connectionResult.canWrite && (
-                  <button
-                    type="button"
-                    onClick={() => setShowFirebaseGuide(true)}
-                    className="mt-1.5 font-bold underline cursor-pointer text-amber-200 hover:text-white block"
-                  >
-                    Clique aqui para ver a regra do Firebase Console
-                  </button>
-                )}
-              </div>
-            </div>
-            <button
-              type="button"
-              onClick={() => setConnectionResult(null)}
-              className="text-current opacity-70 hover:opacity-100 cursor-pointer p-0.5"
-            >
-              <span className="material-symbols-outlined text-[16px]">close</span>
-            </button>
-          </div>
-        )}
       </div>
 
       {/* 3 Summary Biometric Cards */}

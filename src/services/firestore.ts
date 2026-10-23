@@ -82,21 +82,21 @@ export async function testFirestoreAccess(): Promise<{
     return {
       connected: true,
       canWrite: true,
-      message: 'Conexão e gravação no Firestore confirmadas com sucesso! Seu banco de dados está ativo e recebendo dados.',
+      message: 'Conexão com os servidores em nuvem confirmada com sucesso! Sincronização em tempo real ativa.',
     };
   } catch (err: unknown) {
     const errorObj = err as { code?: string; message?: string };
     const code = errorObj.code || '';
-    let message = errorObj.message || 'Erro ao conectar ao Firestore.';
+    let message = errorObj.message || 'Falha ao conectar aos servidores em nuvem.';
 
     if (code === 'permission-denied') {
       message =
-        'Permissão negada (permission-denied). Suas regras de segurança no console do Firebase estão bloqueando gravação. Acesse Firebase Console > Firestore Database > Regras (Rules) e libere para teste.';
+        'Permissão de gravação temporariamente restrita. Seus dados continuam salvos com segurança localmente.';
     } else if (code === 'not-found') {
       message =
-        'Banco de dados não encontrado (not-found). Verifique se você clicou em "Criar banco de dados" no console do Firebase Firestore para o projeto imc-saude-71e4a.';
+        'Serviço em nuvem não inicializado. Seus dados continuam salvos com segurança localmente.';
     } else if (code === 'unavailable') {
-      message = 'Serviço do Firestore temporariamente indisponível ou offline.';
+      message = 'Servidor em nuvem temporariamente indisponível ou offline.';
     }
 
     return {

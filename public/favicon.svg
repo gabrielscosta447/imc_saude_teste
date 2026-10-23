@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Rounded Background Container -->
+  <rect width="64" height="64" rx="18" fill="#051F20"/>
+  <rect x="2" y="2" width="60" height="60" rx="16" stroke="#8EB69B" stroke-width="2.5" stroke-opacity="0.4"/>
+  
+  <!-- Subtle Glow Layer -->
+  <circle cx="32" cy="32" r="22" fill="#8EB69B" fill-opacity="0.12" filter="blur(4px)"/>
+
+  <!-- Organic Botanical Leaf Contour -->
+  <path d="M 32 14 C 42 14 48 22 48 32 C 48 42 38 48 32 50 C 26 48 16 42 16 32 C 16 22 22 14 32 14 Z" fill="#8EB69B"/>
+
+  <!-- Leaf Vein & Vital Pulse Curve -->
+  <path d="M 32 17 C 32 28 23 37 23 37" stroke="#051F20" stroke-width="3" stroke-linecap="round"/>
+  
+  <!-- Biometric Node / Vital Dot -->
+  <circle cx="36" cy="27" r="4" fill="#DAF1DE"/>
+  
+  <!-- Health Base Line -->
+  <path d="M 24 41 L 40 41" stroke="#051F20" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

@@ -57,18 +57,30 @@ export default function App() {
     };
   });
 
-  // Measurements state: clean initial environment as requested
-  const [measurements, setMeasurements] = useState<Measurement[]>(() => {
-    const saved = localStorage.getItem('imc_saude_measurements');
+  // Measurements state: clean initial environment, strictly isolated per user
+  const [measurements, setMeasurements] = useState<Measurement[]>([]);
+
+  // Helper to load user-specific measurements from cache
+  const loadUserCachedMeasurements = (uid?: string) => {
+    if (!uid) {
+      setMeasurements([]);
+      return;
+    }
+    const userKey = `imc_saude_measurements_${uid}`;
+    const saved = localStorage.getItem(userKey);
     if (saved) {
       try {
-        return JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) {
+          setMeasurements(parsed);
+          return;
+        }
       } catch {
-        // fallback
+        // ignore
       }
     }
-    return [];
-  });
+    setMeasurements([]);
+  };
 
   // Firebase Auth State Listener
   useEffect(() => {
@@ -79,47 +91,50 @@ export default function App() {
           (firebaseUser.email ? firebaseUser.email.split('@')[0] : 'Usuário');
         const formattedName = displayName.charAt(0).toUpperCase() + displayName.slice(1);
 
-        setUser((prev) => ({
-          ...prev,
+        setUser({
           uid: firebaseUser.uid,
           name: formattedName,
           email: firebaseUser.email || '',
           photoURL: firebaseUser.photoURL || undefined,
+          height: 1.77,
           isLoggedIn: true,
-        }));
+        });
 
-        // Load cached user-specific measurements if available initially
-        const userKey = `imc_saude_measurements_${firebaseUser.uid}`;
-        const savedUserMeasurements = localStorage.getItem(userKey);
-        if (savedUserMeasurements) {
-          try {
-            setMeasurements(JSON.parse(savedUserMeasurements));
-          } catch {
-            // ignore
-          }
-        }
+        // Load isolated measurements for this specific user
+        loadUserCachedMeasurements(firebaseUser.uid);
 
         // Direct to dashboard if currently on auth screens
         setCurrentScreen((prev) => (prev === 'login' || prev === 'register' ? 'dashboard' : prev));
       } else {
-        setUser((prev) => ({ ...prev, isLoggedIn: prev.isLoggedIn, uid: undefined }));
+        setUser({
+          name: '',
+          email: '',
+          height: 1.77,
+          isLoggedIn: false,
+          uid: undefined,
+        });
+        setMeasurements([]);
       }
     });
 
     return () => unsubscribe();
   }, []);
 
-  // Real-time Firestore sync for logged-in user
+  // Real-time Firestore sync for logged-in user (isolated by user.uid)
   useEffect(() => {
-    const activeUid = auth.currentUser?.uid || user.uid;
-    if (!activeUid) return;
+    const activeUid = user.uid || auth.currentUser?.uid;
+    if (!activeUid) {
+      setMeasurements([]);
+      return;
+    }
 
     const unsubscribe = subscribeToUserMeasurements(
       activeUid,
       (firestoreItems) => {
-        if (firestoreItems && firestoreItems.length > 0) {
-          setMeasurements(firestoreItems);
-        }
+        // ALWAYS update with the user's Firestore measurements (even if empty [])
+        const userMeasurements = firestoreItems || [];
+        setMeasurements(userMeasurements);
+        localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify(userMeasurements));
       },
       (err) => {
         console.warn('Usando armazenamento local como fallback:', err);
@@ -140,18 +155,13 @@ export default function App() {
     }
   }, [isDark]);
 
-  // Persist measurements locally
-  useEffect(() => {
-    localStorage.setItem('imc_saude_measurements', JSON.stringify(measurements));
-    const activeUid = auth.currentUser?.uid || user.uid;
-    if (activeUid) {
-      localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify(measurements));
-    }
-  }, [measurements, user.uid]);
-
   // Persist user locally
   useEffect(() => {
-    localStorage.setItem('imc_saude_user', JSON.stringify(user));
+    if (user.uid) {
+      localStorage.setItem('imc_saude_user', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('imc_saude_user');
+    }
   }, [user]);
 
   const toggleTheme = () => {
@@ -159,10 +169,11 @@ export default function App() {
   };
 
   const handleLoginSuccess = async (email: string, name?: string, photoURL?: string, uid?: string) => {
+    const activeUid = uid || auth.currentUser?.uid;
     const defaultName = name || email.split('@')[0] || 'Usuário';
     const formattedName = defaultName.charAt(0).toUpperCase() + defaultName.slice(1);
     const updatedUser = {
-      uid,
+      uid: activeUid,
       name: formattedName,
       email,
       photoURL,
@@ -171,14 +182,12 @@ export default function App() {
     };
     setUser(updatedUser);
 
-    const activeUid = uid || auth.currentUser?.uid;
+    // Load specifically this user's measurements
+    loadUserCachedMeasurements(activeUid);
+
     if (activeUid) {
       try {
         await saveUserProfileToFirestore(activeUid, updatedUser);
-        // Sincroniza medições locais acumuladas se houver
-        if (measurements.length > 0) {
-          await syncAllMeasurementsToFirestore(activeUid, measurements, updatedUser);
-        }
       } catch (e) {
         console.warn('Erro ao salvar perfil no Firestore:', e);
       }
@@ -188,8 +197,9 @@ export default function App() {
   };
 
   const handleRegisterSuccess = async (name: string, email: string, photoURL?: string, uid?: string) => {
+    const activeUid = uid || auth.currentUser?.uid;
     const updatedUser = {
-      uid,
+      uid: activeUid,
       name,
       email,
       photoURL,
@@ -197,9 +207,10 @@ export default function App() {
       isLoggedIn: true,
     };
     setUser(updatedUser);
-
-    const activeUid = uid || auth.currentUser?.uid;
+    // Brand new registered user starts with 0 measurements
+    setMeasurements([]);
     if (activeUid) {
+      localStorage.removeItem(`imc_saude_measurements_${activeUid}`);
       try {
         await saveUserProfileToFirestore(activeUid, updatedUser);
       } catch (e) {
@@ -223,6 +234,8 @@ export default function App() {
       isLoggedIn: false,
       uid: undefined,
     });
+    setMeasurements([]);
+    localStorage.removeItem('imc_saude_user');
     setCurrentScreen('login');
   };
 
@@ -242,10 +255,8 @@ export default function App() {
         isLoggedIn: true,
       };
       setUser(updatedUser);
+      loadUserCachedMeasurements(result.user.uid);
       await saveUserProfileToFirestore(result.user.uid, updatedUser);
-      if (measurements.length > 0) {
-        await syncAllMeasurementsToFirestore(result.user.uid, measurements, updatedUser);
-      }
       return { success: true };
     } catch (err: unknown) {
       console.error('Google connect error:', err);
@@ -259,19 +270,24 @@ export default function App() {
       id: 'm-' + Date.now(),
     };
 
+    const activeUid =
+      user.uid ||
+      auth.currentUser?.uid ||
+      (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
+
     // Optimistic local update
-    setMeasurements((prev) => [newMeasurement, ...prev]);
+    setMeasurements((prev) => {
+      const updated = [newMeasurement, ...prev];
+      if (activeUid) {
+        localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify(updated));
+      }
+      return updated;
+    });
 
     const newHeight = data.height > 0 ? data.height : user.height;
     if (data.height > 0) {
       setUser((prev) => ({ ...prev, height: data.height }));
     }
-
-    // Persist to Cloud Firestore - uses active uid or fallback
-    const activeUid =
-      auth.currentUser?.uid ||
-      user.uid ||
-      (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
 
     try {
       const res = await addFirestoreMeasurement(activeUid, newMeasurement, user);
@@ -285,14 +301,18 @@ export default function App() {
   };
 
   const handleUpdateMeasurement = async (updated: Measurement) => {
-    setMeasurements((prev) =>
-      prev.map((m) => (m.id === updated.id ? updated : m))
-    );
-
     const activeUid =
-      auth.currentUser?.uid ||
       user.uid ||
+      auth.currentUser?.uid ||
       (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
+
+    setMeasurements((prev) => {
+      const updatedList = prev.map((m) => (m.id === updated.id ? updated : m));
+      if (activeUid) {
+        localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify(updatedList));
+      }
+      return updatedList;
+    });
 
     try {
       await updateFirestoreMeasurement(activeUid, updated);
@@ -302,16 +322,18 @@ export default function App() {
   };
 
   const handleDeleteMeasurement = async (id: string) => {
+    const activeUid =
+      user.uid ||
+      auth.currentUser?.uid ||
+      (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
+
     setMeasurements((prev) => {
       const updated = prev.filter((m) => m.id !== id);
-      localStorage.setItem('imc_saude_measurements', JSON.stringify(updated));
+      if (activeUid) {
+        localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify(updated));
+      }
       return updated;
     });
-
-    const activeUid =
-      auth.currentUser?.uid ||
-      user.uid ||
-      (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
 
     try {
       await deleteFirestoreMeasurement(activeUid, id);
@@ -321,13 +343,15 @@ export default function App() {
   };
 
   const handleLoadDemoData = async () => {
-    setMeasurements(DEMO_MEASUREMENTS);
-    localStorage.setItem('imc_saude_measurements', JSON.stringify(DEMO_MEASUREMENTS));
-
     const activeUid =
-      auth.currentUser?.uid ||
       user.uid ||
+      auth.currentUser?.uid ||
       (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
+
+    setMeasurements(DEMO_MEASUREMENTS);
+    if (activeUid) {
+      localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify(DEMO_MEASUREMENTS));
+    }
 
     try {
       for (const item of DEMO_MEASUREMENTS) {
@@ -339,26 +363,26 @@ export default function App() {
   };
 
   const handleClearAllData = async () => {
-    setMeasurements([]);
-    localStorage.removeItem('imc_saude_measurements');
-
     const activeUid =
-      auth.currentUser?.uid ||
       user.uid ||
+      auth.currentUser?.uid ||
       (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
 
-    localStorage.removeItem(`imc_saude_measurements_${activeUid}`);
-    try {
-      await clearAllFirestoreMeasurements(activeUid);
-    } catch (e) {
-      console.warn('Erro ao limpar dados no Firestore:', e);
+    setMeasurements([]);
+    if (activeUid) {
+      localStorage.setItem(`imc_saude_measurements_${activeUid}`, JSON.stringify([]));
+      try {
+        await clearAllFirestoreMeasurements(activeUid);
+      } catch (e) {
+        console.warn('Erro ao limpar dados no Firestore:', e);
+      }
     }
   };
 
   const handleManualSync = async () => {
     const activeUid =
-      auth.currentUser?.uid ||
       user.uid ||
+      auth.currentUser?.uid ||
       (user.email ? user.email.replace(/[^a-zA-Z0-9]/g, '_') : 'usuario-local');
 
     return await syncAllMeasurementsToFirestore(activeUid, measurements, user);

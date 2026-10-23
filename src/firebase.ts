@@ -68,7 +68,7 @@ export function formatAuthError(error: unknown): string {
     case 'auth/cancelled-popup-request':
       return 'Solicitação de popup cancelada. Tente novamente.';
     case 'auth/unauthorized-domain':
-      return 'Domínio não autorizado no Firebase Console. Adicione este domínio em Authentication > Settings > Authorized domains.';
+      return 'Acesso temporariamente não autorizado a partir deste domínio. Tente recarregar a página ou entre pelo link oficial.';
     case 'auth/user-not-found':
       return 'Nenhum usuário encontrado com este e-mail.';
     case 'auth/wrong-password':
@@ -85,7 +85,7 @@ export function formatAuthError(error: unknown): string {
     case 'auth/too-many-requests':
       return 'Muitas tentativas malsucedidas. Tente novamente mais tarde.';
     case 'auth/operation-not-allowed':
-      return 'O provedor Google ou e-mail/senha não está ativado no Firebase Console. Ative em Authentication > Sign-in method.';
+      return 'O login com Google está temporariamente indisponível. Tente novamente em instantes.';
     default:
       return err.message || 'Falha ao autenticar. Tente novamente.';
   }
